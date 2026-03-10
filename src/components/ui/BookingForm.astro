@@ -24,11 +24,7 @@ import LinkOrButton from "./LinkOrButton.astro";
         aria-describedby="error-msg-name"
         required
       />
-      <span
-        id="error-msg-name"
-        class="error-msg"
-        aria-live="polite"
-        data-error-for="name"></span>
+      <span id="error-msg-name" class="error-msg" aria-live="polite" data-error-for="name"></span>
     </div>
     <div class="form__control">
       <label for="email"></label>
@@ -40,11 +36,7 @@ import LinkOrButton from "./LinkOrButton.astro";
         aria-describedby="error-msg-email"
         required
       />
-      <span
-        id="error-msg-email"
-        class="error-msg"
-        aria-live="polite"
-        data-error-for="email"></span>
+      <span id="error-msg-email" class="error-msg" aria-live="polite" data-error-for="email"></span>
     </div>
     <fieldset class="form__control date">
       <legend><span>Pick a date</span></legend>
@@ -88,11 +80,7 @@ import LinkOrButton from "./LinkOrButton.astro";
             required
           />
         </label>
-        <span
-          class="error-msg"
-          id="error-msg-date"
-          aria-live="polite"
-          data-error-for="day"></span>
+        <span class="error-msg" id="error-msg-date" aria-live="polite" data-error-for="day"></span>
       </div>
     </fieldset>
     <fieldset class="form__control time">
@@ -147,22 +135,12 @@ import LinkOrButton from "./LinkOrButton.astro";
             >
               AM
             </li>
-            <li
-              class="select-choices"
-              role="option"
-              tabindex="0"
-              data-option-two
-            >
-              PM
-            </li>
+            <li class="select-choices" role="option" tabindex="0" data-option-two>PM</li>
           </ul>
           <input type="hidden" name="meridiem" id="meridiem" value="AM" />
         </div>
-        <span
-          class="error-msg"
-          id="error-msg-time"
-          aria-live="polite"
-          data-error-for="minute"></span>
+        <span class="error-msg" id="error-msg-time" aria-live="polite" data-error-for="minute"
+        ></span>
       </div>
     </fieldset>
     <div class="form__control stepper">
@@ -420,7 +398,6 @@ import LinkOrButton from "./LinkOrButton.astro";
 
     if (isInputError(error)) {
       for (const [fieldName, message] of Object.entries(error.fields)) {
-        console.log(error.fields);
         const firstErrorMessage = message[0];
         setFieldError(fieldName, firstErrorMessage);
       }
@@ -428,26 +405,20 @@ import LinkOrButton from "./LinkOrButton.astro";
   });
 
   function setFieldError(fieldName: string, message: string | null) {
-    const inputEl = document.querySelector<HTMLElement>(
-      `input[name="${fieldName}"]`
-    );
+    const inputEl = document.querySelector<HTMLElement>(`input[name="${fieldName}"]`);
 
     inputEl?.classList.add(`error-input`);
     const fieldset = inputEl?.closest(`fieldset`);
     const legendEl = fieldset?.querySelector(`legend`);
     legendEl?.classList.add(`error-legend`);
 
-    const errorEl = document.querySelector<HTMLSpanElement>(
-      `[data-error-for="${fieldName}"]`
-    );
+    const errorEl = document.querySelector<HTMLSpanElement>(`[data-error-for="${fieldName}"]`);
     if (!errorEl) return;
     errorEl.textContent = message ?? "";
   }
 
   function clearAllErrors() {
-    document
-      .querySelectorAll(`[data-error-for]`)
-      .forEach((el) => (el.textContent = ""));
+    document.querySelectorAll(`[data-error-for]`).forEach((el) => (el.textContent = ""));
     document
       .querySelectorAll<HTMLInputElement>(`input`)
       .forEach((input) => input.classList.remove(`error-input`));
@@ -457,17 +428,12 @@ import LinkOrButton from "./LinkOrButton.astro";
   }
 
   // Stepper Code
-  const decrementBtn =
-    document.querySelector<HTMLButtonElement>(`.decrement-btn`)!;
-  const incrementBtn =
-    document.querySelector<HTMLButtonElement>(`.increment-btn`)!;
+  const decrementBtn = document.querySelector<HTMLButtonElement>(`.decrement-btn`)!;
+  const incrementBtn = document.querySelector<HTMLButtonElement>(`.increment-btn`)!;
   const countLabel = document.querySelector<HTMLSpanElement>(`.stepper-label`)!;
-  const peopleInput =
-    document.querySelector<HTMLInputElement>(`#people-input`)!;
+  const peopleInput = document.querySelector<HTMLInputElement>(`#people-input`)!;
   let count = Number(peopleInput.value) || 1;
   let min = Number(peopleInput.getAttribute(`min`)) || 1;
-
-  console.log(count);
 
   function updateDisplay() {
     countLabel.textContent = `${count} ${count === 1 ? `Person` : `People`}`;
@@ -491,20 +457,15 @@ import LinkOrButton from "./LinkOrButton.astro";
   });
 
   // Custom Meridiem Code
-  const customSelectWrapperEl =
-    document.querySelector<HTMLDivElement>(`.custom-select`);
-  const selectTriggerEl =
-    document.querySelector<HTMLButtonElement>(`.select-trigger`);
-  const selectOptionsListEl =
-    document.querySelector<HTMLElement>(`.select-options`);
-  const selectValueEl =
-    document.querySelector<HTMLSpanElement>(`.selected-value`);
+  const customSelectWrapperEl = document.querySelector<HTMLDivElement>(`.custom-select`);
+  const selectTriggerEl = document.querySelector<HTMLButtonElement>(`.select-trigger`);
+  const selectOptionsListEl = document.querySelector<HTMLElement>(`.select-options`);
+  const selectValueEl = document.querySelector<HTMLSpanElement>(`.selected-value`);
   const meridiemInputEl = document.querySelector<HTMLInputElement>(`#meridiem`);
-  const selectOptionEls =
-    document.querySelectorAll<HTMLLIElement>(`.select-choices`);
+  const selectOptionEls = document.querySelectorAll<HTMLLIElement>(`.select-choices`);
 
   let currentFocus = Array.from(selectOptionEls).findIndex(
-    (opt) => opt.getAttribute(`aria-selected`) === `true`
+    (opt) => opt.getAttribute(`aria-selected`) === `true`,
   );
 
   selectTriggerEl?.addEventListener(`click`, () => {
@@ -529,7 +490,7 @@ import LinkOrButton from "./LinkOrButton.astro";
   selectOptionEls.forEach((opt, index) =>
     opt.addEventListener(`click`, () => {
       selectOption(index);
-    })
+    }),
   );
 
   function selectOption(index: any) {
@@ -539,7 +500,6 @@ import LinkOrButton from "./LinkOrButton.astro";
         selectValueEl!.textContent = opt.textContent;
         meridiemInputEl!.value = opt.textContent.trim();
         currentFocus = i;
-        console.log(meridiemInputEl?.value);
       } else {
         opt.setAttribute(`aria-selected`, `false`);
       }
@@ -582,14 +542,11 @@ import LinkOrButton from "./LinkOrButton.astro";
         currentFocus = (currentFocus + 1) % selectOptionEls.length;
         highlightOption(currentFocus);
         e.preventDefault();
-        console.log(e.key);
         break;
       case `ArrowUp`:
-        currentFocus =
-          (currentFocus - 1 + selectOptionEls.length) % selectOptionEls.length;
+        currentFocus = (currentFocus - 1 + selectOptionEls.length) % selectOptionEls.length;
         highlightOption(currentFocus);
         e.preventDefault();
-        console.log(e.key);
 
         break;
       case `Enter`:
@@ -597,13 +554,11 @@ import LinkOrButton from "./LinkOrButton.astro";
         if (selectTriggerEl?.getAttribute(`aria-expanded`) === `true`) {
           selectOption(currentFocus);
           e.preventDefault();
-          console.log(e.key);
         }
         break;
       case `Escape`:
         closeDropdown();
         e.preventDefault();
-        console.log(e.key);
 
         break;
     }
