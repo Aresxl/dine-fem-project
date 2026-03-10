@@ -1,0 +1,109 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Variant = "dark" | "light";
+
+interface AnchorProps extends HTMLAttributes<"a"> {
+  as?: "a";
+  href: string;
+  text: string;
+  variant: Variant;
+}
+interface ButtonProps extends HTMLAttributes<"button"> {
+  as: "button";
+  type?: "button" | "submit" | "reset";
+  text: string;
+  variant: Variant;
+}
+
+type Props = AnchorProps | ButtonProps;
+const props = Astro.props as Props;
+
+const { as, text, variant = "dark", ...rest } = props as any;
+
+const inferredAs = (props as any).href ? "a" : (as ?? "button");
+---
+
+{
+  inferredAs === "a" ? (
+    // Anchor
+    <a
+      href={(props as any).href}
+      class:list={[`btn`, `btn--${variant}`]}
+      {...rest}
+    >
+      {text}
+    </a>
+  ) : (
+    <button
+      type={(props as any).type ?? "button"}
+      class:list={[`btn`, `btn--${variant}`]}
+      {...rest}
+    >
+      {text}
+    </button>
+  )
+}
+
+<style>
+  .btn {
+    --width: 245px;
+    --height: 64px;
+
+    display: grid;
+    place-content: center;
+    width: var(--width);
+    height: var(--height);
+    border: 0px;
+    text-transform: uppercase;
+    font-weight: var(--fw-600);
+    font-size: var(--fs-6);
+    letter-spacing: 2.5px;
+    color: var(--clr-neutral-0);
+    cursor: pointer;
+
+    transition: 200ms ease-in-out;
+    transition-property: color, background-color, outline;
+  }
+
+  .btn--light {
+    outline: 1px solid var(--clr-neutral-0);
+    color: var(--clr-neutral-0);
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--clr-neutral-0);
+      color: var(--clr-primary-gray-900);
+    }
+  }
+
+  .btn--dark {
+    background-color: var(--clr-primary-gray-900);
+    color: var(--clr-neutral-0);
+
+    &:hover,
+    &:focus-visible {
+      outline: 1px solid var(--clr-primary-gray-900);
+      background-color: var(--clr-neutral-0);
+      color: var(--clr-primary-gray-900);
+    }
+  }
+</style>
+
+<script>
+  const btnAll = document.querySelectorAll(`.btn--dark`);
+  const btn = document.querySelector(`.btn--dark`);
+
+  // btn && btn.click();
+
+  btn?.addEventListener(`click`, (e) => {
+    console.log(`btn clicked`);
+    // window.location.href = "/booking";
+  });
+
+  btnAll.forEach((btn) => {
+    btn.addEventListener(`click`, () => {
+      console.log(`button clicked`);
+    });
+  });
+</script>

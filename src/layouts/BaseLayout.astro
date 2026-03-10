@@ -1,0 +1,20 @@
+---
+// Styles
+import "@/styles/global.css";
+
+// Components
+import MetaHeadLayout from "./MetaHeadLayout.astro";
+import Footer from "@/components/sections/Footer.astro";
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <MetaHeadLayout title={title} />
+  <body>
+    <a href="#main" class="skip-to-main">Skip to main content</a>
+    <slot />
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,64 @@
+---
+// Images
+import DesktopImg from "@/assets/images/homepage/desktop/ready-bg-desktop@2x.jpg";
+import TabletImg from "@/assets/images/homepage/tablet/ready-bg-tablet@2x.jpg";
+import MobileImg from "@/assets/images/homepage/mobile/ready-bg-mobile@2x.jpg";
+
+// Components
+import CustomPicture from "../ui/CustomPicture.astro";
+import Heading from "../ui/Heading.astro";
+import LinkOrButton from "../ui/LinkOrButton.astro";
+---
+
+<section class="cta | grid-main">
+  <CustomPicture
+    desktopURL={DesktopImg}
+    tabletURL={TabletImg}
+    mobileURL={MobileImg}
+    mobileWidth={MobileImg.width}
+    mobileHeight={MobileImg.height}
+    priority={false}
+    alt=""
+    class="cta__picture"
+  />
+  <div class="content__wrapper">
+    <Heading title="Ready to make a reservation?" tag="h2" size="h2" />
+    <LinkOrButton as="a" href="/booking" variant="light" text="Book a table" />
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+  }
+
+  .cta__picture {
+    grid-column: 1 / -1;
+    z-index: -1;
+  }
+
+  .content__wrapper {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--clr-neutral-0);
+  }
+
+  @media (min-width: 640px) {
+    .content__wrapper {
+      gap: 24px;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .content__wrapper {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+</style>

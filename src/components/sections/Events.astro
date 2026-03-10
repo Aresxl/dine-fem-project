@@ -1,0 +1,284 @@
+---
+// Images
+import FamGathDesktop from "@/assets/images/homepage/desktop/family-gathering-desktop@2x.jpg";
+import FamGathTablet from "@/assets/images/homepage/tablet/family-gathering-tablet@2x.jpg";
+import FamGathMobile from "@/assets/images/homepage/mobile/family-gathering-mobile@2x.jpg";
+
+import SpecEventsDesktop from "@/assets/images/homepage/desktop/special-events-desktop@2x.jpg";
+import SpecEventsTablet from "@/assets/images/homepage/tablet/special-events-tablet@2x.jpg";
+import SpecEventsMobile from "@/assets/images/homepage/mobile/special-events-mobile@2x.jpg";
+
+import SocialEventsDesktop from "@/assets/images/homepage/desktop/social-events-desktop@2x.jpg";
+import SocialEventsTablet from "@/assets/images/homepage/tablet/social-events-tablet@2x.jpg";
+import SocialEventsMobile from "@/assets/images/homepage/mobile/social-events-mobile@2x.jpg";
+
+// Deco Shit
+import GrayBGDeco from "@/assets/patterns/pattern-curve-top-left.svg";
+import LinesDeco from "@/assets/patterns/pattern-lines.svg";
+
+// Components
+import CustomPicture from "../ui/CustomPicture.astro";
+import TabButtons from "../ui/TabButtons.astro";
+import TabList from "../ui/TabList.astro";
+import TabPanel from "../ui/TabPanel.astro";
+---
+
+<section class="events | grid-main" aria-labelledby="events-tile">
+  <h2 id="events-title" class="sr-only">Events at Dine Restaurant</h2>
+
+  <GrayBGDeco class="bg__deco-top-right" aria-hidden="true" />
+
+  <div class="tab__wrapper">
+    <div class="picture__wrapper">
+      <CustomPicture
+        desktopURL={FamGathDesktop}
+        tabletURL={FamGathTablet}
+        mobileURL={FamGathMobile}
+        mobileWidth={FamGathMobile.width}
+        mobileHeight={FamGathMobile.height}
+        alt="A family eating together at a table while sharing some entrees"
+        class="tab__picture"
+        data-picture-for="panel-1"
+      />
+      <CustomPicture
+        desktopURL={SpecEventsDesktop}
+        tabletURL={SpecEventsTablet}
+        mobileURL={SpecEventsMobile}
+        mobileWidth={SpecEventsMobile.width}
+        mobileHeight={SpecEventsMobile.height}
+        alt="A group of picture sitting at the table and holding their drinks up while taking a photo"
+        class="tab__picture"
+        data-picture-for="panel-2"
+      />
+      <CustomPicture
+        desktopURL={SocialEventsDesktop}
+        tabletURL={SocialEventsTablet}
+        mobileURL={SocialEventsMobile}
+        mobileWidth={SocialEventsMobile.width}
+        mobileHeight={SocialEventsMobile.height}
+        alt="A close up shot of two people and their wine glasses at a table"
+        class="tab__picture"
+        data-picture-for="panel-3"
+      />
+      <LinesDeco class="bg__deco-lines" aria-hidden="true" />
+    </div>
+
+    <TabList>
+      <TabButtons id="tab-1" controls="panel-1" selected
+        >Family Gathering</TabButtons
+      >
+      <TabButtons id="tab-2" controls="panel-2">Special Events</TabButtons>
+      <TabButtons id="tab-3" controls="panel-3">Social Events</TabButtons>
+    </TabList>
+
+    <TabPanel
+      id="panel-1"
+      title="Family Gathering"
+      description="We love catering for entire families. So please bring everyone along for a special meal with your loved ones. We’ll provide a memorable experience for all."
+    />
+    <TabPanel
+      id="panel-2"
+      title="Special Events"
+      description="Whether it’s a romantic dinner or special date you’re celebrating with others we’ll look after you. We’ll be sure to mark your special date with an unforgettable meal."
+    />
+    <TabPanel
+      id="panel-3"
+      title="Social Events"
+      description="Are you looking to have a larger social event? No problem! We’re more than happy to cater for big parties. We’ll work with you to make your event a hit with everyone."
+    />
+  </div>
+</section>
+
+<style>
+  .events {
+    position: relative;
+    padding-block: 80px 120px;
+  }
+
+  .picture__wrapper {
+    position: relative;
+  }
+
+  .bg__deco-lines {
+    display: none;
+  }
+
+  .bg__deco-top-right {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .bg__deco-lines {
+      position: absolute;
+      top: -38px;
+      left: -58px;
+      display: block;
+    }
+
+    .bg__deco-top-right {
+      grid-column: 1 / 9;
+      position: absolute;
+      z-index: -1;
+
+      left: 0;
+      height: 320px;
+      display: block;
+      transform: rotateY(180deg);
+    }
+
+    .picture__wrapper {
+      max-width: 573px;
+      margin-inline: auto;
+    }
+
+    @media (min-width: 1000px) {
+      .tab__wrapper {
+        display: grid;
+        grid-template-columns: subgrid;
+        row-gap: 70px;
+      }
+
+      .picture__wrapper {
+        grid-column: 1 / 13;
+        grid-row: 1 / 3;
+
+        img {
+          width: 540px;
+          height: 600px;
+          object-fit: cover;
+        }
+      }
+    }
+
+    /* Look at picture wrapper sizing - img isnt sized correctly */
+  }
+</style>
+
+<script>
+  const tabWrapperEl = document.querySelector<HTMLElement>(`.tab__wrapper`);
+  const tabsListEl = tabWrapperEl?.querySelector<HTMLElement>(`.tab__list`);
+  const tabButtonEls =
+    tabsListEl?.querySelectorAll<HTMLButtonElement>(`.tab__button`);
+  const tabPanelEls =
+    tabWrapperEl?.querySelectorAll<HTMLElement>(`.tab__panel`);
+  const tabPictureEls =
+    tabWrapperEl?.querySelectorAll<HTMLPictureElement>(`.tab__picture`);
+
+  if (tabButtonEls && tabPanelEls && tabPictureEls) {
+    tabButtonEls?.forEach((tab, index) => {
+      if (index === 0) {
+        tabButtonEls[0].classList.add(`tab__button--active`);
+      } else {
+        tab.setAttribute(`tabindex`, "-1");
+        tabPanelEls[index].setAttribute("hidden", "");
+        tabPictureEls[index].setAttribute("hidden", "");
+      }
+    });
+  }
+
+  tabPanelEls?.forEach((panel) => {
+    panel.setAttribute(`tabindex`, `0`);
+  });
+
+  tabWrapperEl?.addEventListener(`click`, (e) => {
+    const target = e.target;
+    if (!(target instanceof Element)) return;
+
+    const clickedTab = target.closest("button");
+    if (!clickedTab) return;
+
+    e.preventDefault();
+    switchTab(clickedTab);
+  });
+
+  tabWrapperEl?.addEventListener(`keydown`, (e) => {
+    if (!tabButtonEls) return;
+
+    switch (e.key) {
+      case "ArrowLeft":
+        moveLeft();
+        break;
+      case "ArrowRight":
+        moveRight();
+        break;
+      case "Home":
+        e.preventDefault();
+        switchTab(tabButtonEls[0]);
+        break;
+      case "End":
+        e.preventDefault();
+        switchTab(tabButtonEls[tabButtonEls.length - 1]);
+        break;
+    }
+  });
+
+  function getActiveButtonIndex(): number {
+    if (!tabButtonEls) return -1;
+
+    const active = document.activeElement;
+
+    if (!active) return -1;
+
+    const activeBtn = (
+      active instanceof Element ? active.closest(`button`) : null
+    ) as HTMLButtonElement;
+    if (!activeBtn) return -1;
+
+    for (let i = 0; i < tabButtonEls.length - 1; i++) {
+      if (tabButtonEls[i] === activeBtn) return i;
+    }
+    return -1;
+  }
+
+  function moveLeft() {
+    if (!tabButtonEls || tabButtonEls.length === 0) return;
+
+    const currentIndex = getActiveButtonIndex();
+    const startIndex = currentIndex === -1 ? 0 : currentIndex;
+    const prevIndex =
+      (startIndex - 1 + tabButtonEls.length) % tabButtonEls.length;
+    const prevTab = tabButtonEls[prevIndex];
+    switchTab(prevTab);
+  }
+
+  function moveRight() {
+    if (!tabButtonEls || tabButtonEls.length === 0) return;
+
+    const currentIndex = getActiveButtonIndex();
+
+    const startIndex = currentIndex === -1 ? 0 : currentIndex;
+    const nextIndex = (startIndex + 1) % tabButtonEls.length;
+    const nextTab = tabButtonEls[nextIndex];
+    switchTab(nextTab);
+  }
+
+  function switchTab(newTab: HTMLButtonElement) {
+    const activePanelId = newTab.getAttribute("aria-controls");
+    const activePanel = tabWrapperEl?.querySelector(`#${activePanelId}`);
+    const activePicture = tabWrapperEl?.querySelector(
+      `[data-picture-for="${activePanelId}"]`
+    );
+
+    tabButtonEls?.forEach((button) => {
+      button.setAttribute(`aria-selected`, `false`);
+      button.setAttribute(`tabindex`, `-1`);
+      button.classList.remove(`tab__button--active`);
+    });
+
+    tabPanelEls?.forEach((panel) => {
+      panel.setAttribute(`hidden`, `true`);
+    });
+
+    tabPictureEls?.forEach((pic) => {
+      pic.setAttribute(`hidden`, `true`);
+    });
+
+    activePanel?.removeAttribute(`hidden`);
+    activePicture?.removeAttribute(`hidden`);
+
+    newTab.setAttribute(`aria-selected`, `true`);
+    newTab.setAttribute(`tabindex`, `0`);
+    newTab.classList.add(`tab__button--active`);
+    newTab.focus();
+  }
+</script>

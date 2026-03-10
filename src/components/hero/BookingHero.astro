@@ -1,0 +1,112 @@
+---
+// Images
+import SiteLogo from "@/icons/logo.svg";
+import HeroBGDesktop from "@/images/booking/desktop/hero-bg-desktop@2x.jpg";
+import HeroBGTablet from "@/images/booking/tablet/hero-bg-tablet@2x.jpg";
+import HeroBGMobile from "@/images/booking/mobile/hero-bg-mobile@2x.jpg";
+
+// Components
+import LinkOrButton from "../ui/LinkOrButton.astro";
+import CustomPicture from "../ui/CustomPicture.astro";
+import Heading from "../ui/Heading.astro";
+---
+
+<header class="site__header | grid-main">
+  <CustomPicture
+    desktopURL={HeroBGDesktop}
+    tabletURL={HeroBGTablet}
+    mobileURL={HeroBGMobile}
+    mobileWidth={HeroBGMobile.width}
+    mobileHeight={HeroBGMobile.height}
+    priority={true}
+    alt=""
+    class="site__header-picture"
+  />
+  <div class="site__header-wrapper">
+    <a href="/" class="home-link">
+      <SiteLogo />
+    </a>
+    <div class="site__header-content">
+      <Heading title="Reservations" tag="h1" size="h1" />
+      <p class="site__header-desc">
+        We can’t wait to host you. If you have any special requirements please
+        feel free to call on the phone number below. We’ll be happy to
+        accommodate you.
+      </p>
+      <LinkOrButton as="a" href="#form" text="Reserve place" variant="light" />
+    </div>
+  </div>
+</header>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .site__header {
+    position: relative;
+  }
+
+  .site__header-wrapper {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block-start: 60px;
+    color: var(--clr-neutral-0);
+    text-align: center;
+  }
+
+  .site__header-content {
+    display: grid;
+    gap: 20px;
+  }
+
+  .site__header-content .btn {
+    justify-self: center;
+  }
+
+  .home-link {
+    margin-block-end: 45px;
+  }
+
+  .site__header-desc {
+    max-width: 35ch;
+  }
+
+  @media (min-width: 640px) {
+    .site__header {
+      --page-padding: 40px;
+    }
+
+    .home-link {
+      align-self: start;
+      margin-block-end: 70px;
+    }
+
+    .site__header-desc {
+      max-width: 50ch;
+    }
+
+    .site__header-content .btn {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .home-link {
+      margin-block-end: 150px;
+    }
+
+    .site__header-wrapper {
+      text-align: left;
+      align-items: start;
+      padding-block-end: 50px;
+    }
+
+    .site__header-content {
+      max-width: 40ch;
+    }
+  }
+</style>

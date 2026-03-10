@@ -1,0 +1,45 @@
+---
+import Heading from "./Heading.astro";
+import LinkOrButton from "./LinkOrButton.astro";
+
+const { title, description, ...rest } = Astro.props;
+---
+
+<div class="tab__panel" role="tabpanel" {...rest}>
+  <Heading title={title} tag="h3" size="h2" />
+  <p>{description}</p>
+  <LinkOrButton as="a" href="/booking" variant="dark" text="Book a table" />
+</div>
+
+<style>
+  .tab__panel {
+    display: grid;
+    text-align: center;
+    justify-items: center;
+  }
+
+  p {
+    margin-block: 15px 30px;
+  }
+
+  @media (min-width: 640px) {
+    p {
+      max-width: 40ch;
+      margin-block: 20px 60px;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .tab__panel {
+      grid-column: 15 / -1;
+      grid-row: 1 / 2;
+      align-self: end;
+      justify-items: start;
+      text-align: left;
+    }
+
+    p {
+      max-width: 36ch;
+    }
+  }
+</style>

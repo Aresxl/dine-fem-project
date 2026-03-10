@@ -1,0 +1,136 @@
+---
+// Images
+import SiteLogo from "@/icons/logo.svg";
+import HeroBGMobile from "@/assets/images/homepage/mobile/hero-bg-mobile@2x.jpg";
+import HeroBGTablet from "@/assets/images/homepage/tablet/hero-bg-tablet@2x.jpg";
+import HeroBGDesktop from "@/assets/images/homepage/desktop/hero-bg-desktop@2x.jpg";
+
+// Components
+import CustomPicture from "@/components/ui/CustomPicture.astro";
+import LinkOrButton from "@/components/ui/LinkOrButton.astro";
+import Heading from "../ui/Heading.astro";
+---
+
+<header class="site__header | grid-main">
+  <CustomPicture
+    desktopURL={HeroBGDesktop}
+    tabletURL={HeroBGTablet}
+    mobileURL={HeroBGMobile}
+    mobileWidth={HeroBGMobile.width}
+    mobileHeight={HeroBGMobile.height}
+    priority={true}
+    alt=""
+    class="site__header-picture"
+  />
+  <div class="site__header-wrapper">
+    <a href="/" class="home-link" aria-label="Homepage">
+      <SiteLogo aria-hidden="true" />
+    </a>
+    <div class="site__header-content">
+      <Heading title="Exquisite dining since 1989" tag="h1" size="h1" />
+      <p class="site__header-desc">
+        Experience our seasonal menu in beautiful country surroundings. Eat the
+        freshest produce from the comfort of our farmhouse.
+      </p>
+      <LinkOrButton
+        as="a"
+        href="/booking"
+        text="Book a table"
+        variant="light"
+      />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site__header {
+    grid-template-rows: 300px 1fr;
+    row-gap: 30px;
+    overflow: hidden;
+  }
+
+  .site__header-wrapper {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px var(--page-padding) 150px;
+    background-color: var(--clr-primary-gray-900);
+    color: var(--clr-neutral-0);
+    text-align: center;
+  }
+
+  .site__header-content {
+    a {
+      margin-inline: auto;
+    }
+  }
+
+  .site__header-desc {
+    margin-block: 20px 50px;
+    max-width: 42ch;
+  }
+
+  .page-title {
+    margin-block: 36px 20px;
+  }
+
+  @media (min-width: 640px) {
+    .site__header {
+      grid-template-rows: 400px 1fr;
+    }
+
+    .site__header-wrapper {
+      padding: 0px var(--page-padding) 215px;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .site__header {
+      grid-template-rows: auto;
+      row-gap: 0px;
+    }
+
+    .site__header-picture {
+      grid-row: 1/ 2;
+
+      img {
+        height: auto;
+      }
+    }
+
+    .site__header-wrapper {
+      grid-column: 1 / 9;
+      grid-row: 1/ 2;
+
+      display: grid;
+      grid-template-columns: subgrid;
+      align-items: start;
+      gap: 0px;
+      /* row-gap: clamp(30px, calc(30px + 1vw), 80px); */
+      padding: 0px;
+      padding-block-start: 65px;
+      text-align: left;
+
+      > * {
+        grid-column: 2 / -1;
+      }
+    }
+
+    .site__header-content {
+      a {
+        margin-inline: 0px;
+      }
+
+      h1 {
+        margin-inline-end: -10.5rem;
+      }
+    }
+
+    .site__header-desc {
+      margin-block: 10px 40px;
+      margin-inline-end: -8rem;
+    }
+  }
+</style>

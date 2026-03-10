@@ -1,0 +1,81 @@
+---
+import SiteLogo from "@/icons/logo.svg";
+---
+
+<footer class="site__footer | grid-main">
+  <a href="/" class="home-link" aria-label="Homepage">
+    <SiteLogo aria-hidden="true" />
+  </a>
+  <address>
+    Marthwaite, Sedbergh <br />
+    Cumbria <br />
+    <a href="tel:+00441234567" class="telephone">+0044 123 4567</a>
+  </address>
+  <div class="open__times">
+    <p>Open Times</p>
+    <p>Mon - Fri: 09:00 AM - 10:00 PM</p>
+    <p>Sat - Sun: 09:00 AM - 11:30 PM</p>
+  </div>
+</footer>
+
+<style>
+  .site__footer {
+    justify-items: center;
+    row-gap: 40px;
+    padding-block: 80px;
+    background-color: var(--clr-primary-gray-900);
+    color: var(--clr-neutral-0);
+    font-size: var(--fs-5);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 28px;
+  }
+
+  .telephone {
+    color: var(--clr-neutral-0);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    transition: 200ms ease-in-out;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--clr-primary-brown-700);
+    }
+  }
+
+  @media (min-width: 640px) {
+    .site__footer {
+      --page-padding: 40px;
+
+      row-gap: 32px;
+      padding-block: 65px;
+      text-align: left;
+    }
+
+    .home-link {
+      grid-column: 2 / 5;
+    }
+
+    address,
+    .open__times {
+      grid-column: 7 / 15;
+      justify-self: start;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .site__footer {
+      padding-block: 80px;
+      align-items: center;
+    }
+
+    address {
+      grid-column: 8 / 14;
+    }
+
+    .open__times {
+      grid-column: 16 / 23;
+    }
+  }
+</style>

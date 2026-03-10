@@ -1,0 +1,27 @@
+---
+// Components
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import HomeHero from "@/components/hero/HomeHero.astro";
+import Features from "@/components/sections/Features.astro";
+import Menu from "@/components/sections/Menu.astro";
+import Events from "@/components/sections/Events.astro";
+import CTA from "@/components/sections/CTA.astro";
+---
+
+<BaseLayout title="Home">
+  <HomeHero />
+  <main id="main">
+    <Features />
+    <Menu />
+    <Events />
+    <CTA />
+  </main>
+</BaseLayout>
+
+<!-- 
+TO DO
+Fix ALT on features.astro images
+Pass a prop into Custom Picture to decide whether priority should be true or false
+Fix the type of image that my custom picture is 
+
+-->

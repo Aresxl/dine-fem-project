@@ -1,0 +1,35 @@
+---
+
+---
+
+<div role="tablist" class="tab__list">
+  <slot />
+</div>
+
+<style>
+  .tab__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-block: 50px 25px;
+  }
+
+  @media (min-width: 640px) {
+    .tab__list {
+      flex-direction: row;
+      justify-content: center;
+      margin-block: 55px;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .tab__list {
+      grid-column: 15 / -1;
+      gap: 12px;
+      flex-direction: column;
+      justify-content: start;
+      align-items: start;
+      margin-block: 0px;
+    }
+  }
+</style>

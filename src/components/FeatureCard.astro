@@ -1,0 +1,143 @@
+---
+// Images
+import LinesDeco from "@/assets/patterns/pattern-lines.svg";
+
+// Helpers
+import type { CustomPictureProps } from "@/components/ui/CustomPicture.astro";
+
+// Components
+import CustomPicture from "@/components/ui/CustomPicture.astro";
+import ContentBlock from "@/components/ui/ContentBlock.astro";
+import Heading from "@/components/ui/Heading.astro";
+
+interface Props extends CustomPictureProps {
+  title: string;
+  text: string;
+  headingTag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  headingSize: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  bgDecoRequired?: boolean;
+  class?: string;
+}
+
+const {
+  headingTag,
+  headingSize,
+  title,
+  text,
+  mobileURL,
+  tabletURL,
+  desktopURL,
+  mobileWidth,
+  mobileHeight,
+  bgDecoRequired = false,
+  class: className,
+} = Astro.props;
+---
+
+<div class:list={["feature", className]}>
+  <div class="feature__picture-wrapper">
+    <CustomPicture
+      desktopURL={desktopURL}
+      tabletURL={tabletURL}
+      mobileURL={mobileURL}
+      mobileWidth={mobileWidth}
+      mobileHeight={mobileHeight}
+      alt=""
+      class="feature__picture"
+    />
+    {bgDecoRequired && <LinesDeco class="bg__deco-lines" aria-hidden="true" />}
+  </div>
+  <ContentBlock text={text} class="feature">
+    <Heading slot="heading" title={title} tag={headingTag} size={headingSize} />
+  </ContentBlock>
+  <slot />
+</div>
+
+<style>
+  .feature:nth-of-type(1) {
+    .feature__picture-wrapper {
+      margin-block-start: -72px;
+    }
+  }
+
+  .h2 {
+    margin-block: 35px 15px;
+    max-width: 20ch;
+  }
+
+  .bg__deco-lines {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .feature:nth-of-type(1) {
+      .feature__picture-wrapper {
+        margin-block-start: -96px;
+      }
+    }
+
+    .feature__picture-wrapper {
+      position: relative;
+      max-width: 654px;
+      margin-inline: auto;
+    }
+
+    .bg__deco-lines {
+      display: block;
+      position: absolute;
+      bottom: 60px;
+      right: -58px;
+    }
+
+    .h2 {
+      margin-block: 40px 30px;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .feature {
+      display: grid;
+      grid-template-columns: subgrid;
+    }
+
+    .feature:nth-of-type(1) {
+      .feature__picture-wrapper {
+        margin-block-start: -70px;
+      }
+    }
+
+    .feature__picture-wrapper {
+      grid-column: 1 / 12;
+
+      img {
+        width: 540px;
+        height: 720px;
+        object-fit: cover;
+      }
+    }
+
+    .h2 {
+      margin-block: 55px 30px;
+      max-width: 20ch;
+    }
+
+    .feature--inverted {
+      .feature__picture-wrapper {
+        grid-column: 12 / -1;
+        grid-row: 1 / 1;
+        margin-block-end: -150px;
+      }
+
+      .content__block--feature {
+        grid-column: 1 / 10;
+        grid-row: 1 / 1;
+      }
+
+      .bg__deco-lines {
+        top: 50%;
+        right: -114px;
+        transform: translateY(-50%);
+      }
+    }
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+import SingleLineDeco from "@/assets/patterns/pattern-divide.svg";
+
+interface Props {
+  text: string;
+  class?: string;
+}
+
+const { text, class: className } = Astro.props;
+---
+
+<div class:list={["content__block", `content__block--${className}`]}>
+  <SingleLineDeco aria-hidden="true" />
+  <slot name="heading" />
+  <p>{text}</p>
+</div>
+
+<style>
+  .content__block {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .content__block p {
+    max-width: 39ch;
+  }
+
+  @media (min-width: 640px) {
+    .content__block p {
+      max-width: 39ch;
+    }
+  }
+
+  .content__block--feature {
+    color: var(--clr-secondary-blue-700);
+    margin-block-start: 50px;
+  }
+
+  @media (min-width: 1000px) {
+    .content__block {
+      text-align: left;
+      align-content: start;
+      justify-items: start;
+    }
+
+    .content__block--feature {
+      align-self: center;
+      grid-column: 15 / -1;
+      margin-block-start: 0px;
+    }
+
+    .content__block--menu {
+      grid-column: 2 / 11;
+    }
+  }
+</style>

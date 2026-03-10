@@ -1,0 +1,53 @@
+---
+import ContentBlock from "@/components/ui/ContentBlock.astro";
+import Heading from "../ui/Heading.astro";
+import MenuCard from "../MenuCard.astro";
+---
+
+<section class="menu | grid-main" aria-labelledby="menu-title">
+  <ContentBlock
+    text="We cater for all dietary requirements, but here’s a glimpse at some of our diner’s favourites. Our menu is revamped every season."
+    class="menu"
+  >
+    <Heading
+      slot="heading"
+      title="A few highlights from our menu"
+      tag="h2"
+      size="h2"
+      id="menu-title"
+    />
+  </ContentBlock>
+  <MenuCard />
+</section>
+
+<style>
+  .menu {
+    padding-block: 75px 100px;
+    background-color: var(--clr-primary-gray-900);
+    color: var(--clr-neutral-0);
+  }
+
+  .h2 {
+    margin-block: 35px 15px;
+  }
+
+  @media (min-width: 640px) {
+    .menu {
+      padding-block: 100px;
+    }
+
+    .h2 {
+      margin-block: 40px 30px;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .menu {
+      padding-block: 150px 120px;
+    }
+
+    .h2 {
+      margin-block: 55px 30px;
+    }
+  }
+</style>

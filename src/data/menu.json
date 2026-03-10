@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Seared Salmon Fillet",
+    "description": "Our locally sourced salmon served with a refreshing buckwheat summer salad.",
+    "alt": "A piece of seared salmon served on buckweat salad",
+    "gallery": {
+      "desktop": "/src/assets/images/homepage/salmon-desktop-tablet@2x.jpg",
+      "mobile": "/src/assets/images/homepage/mobile/salmon-mobile@2x.jpg"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Rosemary Filet Mignon",
+    "description": "Our prime beef served to your taste with a delicious choice of seasonal sides.",
+    "alt": "A filet of mignon with garnishes on top",
+    "gallery": {
+      "desktop": "/src/assets/images/homepage/beef-desktop-tablet@2x.jpg",
+      "mobile": "/src/assets/images/homepage/mobile/beef-mobile@2x.jpg"
+    }
+  },
+  {
+    "id": 3,
+    "title": "  Summer Fruit Chocolate Mousse",
+    "description": "Creamy mousse combined with summer fruits and dark chocolate shavings.",
+    "alt": "Chocolate mouse topped with fruits and chocolate shavings",
+    "gallery": {
+      "desktop": "/src/assets/images/homepage/chocolate-desktop-tablet@2x.jpg",
+      "mobile": "/src/assets/images/homepage/mobile/chocolate-mobile@2x.jpg"
+    }
+  }
+]

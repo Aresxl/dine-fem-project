@@ -1,0 +1,179 @@
+---
+import { getImage } from "astro:assets";
+
+export type CustomPictureProps = {
+  mobileURL: string | ImageMetadata;
+  tabletURL?: string | ImageMetadata;
+  desktopURL: string | ImageMetadata;
+  mobileWidth: number;
+  mobileHeight: number;
+  alt: string;
+  class?: string;
+  priority?: boolean;
+};
+
+interface Props extends CustomPictureProps {}
+
+const {
+  mobileURL,
+  tabletURL,
+  desktopURL,
+  mobileWidth,
+  mobileHeight,
+  alt,
+  class: className,
+  priority = false,
+  ...rest
+} = Astro.props;
+
+// Desktop
+
+const desktopImgAvif = await getImage({
+  src: desktopURL,
+  format: "avif",
+  priority: priority,
+});
+
+const desktopImgWebp = await getImage({
+  src: desktopURL,
+  format: "avif",
+  priority: priority,
+});
+
+const desktopImgJpg = await getImage({
+  src: desktopURL,
+  format: "avif",
+  priority: priority,
+});
+
+// Tablet
+
+let tabletImgAvif;
+let tabletImgWebp;
+let tabletImgJpg;
+if (tabletURL) {
+  tabletImgAvif = await getImage({
+    src: tabletURL,
+    format: "avif",
+    priority: priority,
+  });
+
+  tabletImgWebp = await getImage({
+    src: tabletURL,
+    format: "webp",
+    priority: priority,
+  });
+
+  tabletImgJpg = await getImage({
+    src: tabletURL,
+    format: "jpg",
+    priority: priority,
+  });
+}
+
+// Mobile
+
+const mobileImgAvif = await getImage({
+  src: mobileURL,
+  format: "avif",
+  priority: priority,
+  width: mobileWidth,
+  height: mobileHeight,
+});
+const mobileImgWebp = await getImage({
+  src: mobileURL,
+  format: "webp",
+  priority: priority,
+  width: mobileWidth,
+  height: mobileHeight,
+});
+const mobileImgJpg = await getImage({
+  src: mobileURL,
+  format: "jpg",
+  priority: priority,
+  width: mobileWidth,
+  height: mobileHeight,
+});
+---
+
+<picture class:list={[className]} {...rest}>
+  <!-- Desktop -->
+  <source
+    media="(min-width: 1000px)"
+    srcset={desktopImgAvif.src}
+    type="image/avif"
+  />
+  <source
+    media="(min-width: 1000px)"
+    srcset={desktopImgWebp.src}
+    type="image/webp"
+  />
+  <source
+    media="(min-width: 1000px)"
+    srcset={desktopImgJpg.src}
+    type="image/jpg"
+  />
+
+  <!-- Tablet -->
+  {
+    tabletImgAvif && (
+      <source
+        media="(min-width: 640px)"
+        srcset={tabletImgAvif.src}
+        type="image/avif"
+      />
+    )
+  }
+  {
+    tabletImgWebp && (
+      <source
+        media="(min-width: 640px)"
+        srcset={tabletImgWebp.src}
+        type="image/webp"
+      />
+    )
+  }
+  {
+    tabletImgJpg && (
+      <source
+        media="(min-width: 640px)"
+        srcset={tabletImgJpg.src}
+        type="image/jpg"
+      />
+    )
+  }
+
+  <!-- Mobile -->
+  <source
+    media="(min-width: 375px)"
+    srcset={mobileImgAvif.src}
+    type="image/avif"
+  />
+  <source
+    media="(min-width: 375px)"
+    srcset={mobileImgWebp.src}
+    type="image/webp"
+  />
+
+  <img src={mobileImgJpg.src} alt={alt} {...mobileImgJpg.attributes} />
+  <slot />
+</picture>
+
+<style>
+  .site__header-picture {
+    grid-column: 1 / -1;
+  }
+
+  .site__header-picture img {
+    width: 100%;
+  }
+
+  .feature__picture,
+  .tab__picture {
+    box-shadow: 0 75px 100px -50px var(--clr-box-shadow);
+  }
+
+  .cta__picture img {
+    width: 100%;
+  }
+</style>

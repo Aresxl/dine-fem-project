@@ -1,0 +1,103 @@
+---
+// Images
+import LandscapeDesktopImg from "@/assets/images/homepage/desktop/enjoyable-place-desktop@2x.jpg";
+import LandscapeTabletImg from "@/assets/images/homepage/tablet/enjoyable-place-tablet@2x.jpg";
+import LandscapeMobileImg from "@/assets/images/homepage/mobile/enjoyable-place-mobile@2x.jpg";
+import FoodDesktopImg from "@/assets/images/homepage/desktop/locally-sourced-desktop@2x.jpg";
+import FoodTabletImg from "@/assets/images/homepage/tablet/locally-sourced-tablet@2x.jpg";
+import FoodMobileImg from "@/assets/images/homepage/mobile/locally-sourced-mobile@2x.jpg";
+
+// Decoration Shit
+import GrayBGDeco from "@/assets/patterns/pattern-curve-top-left.svg";
+import LinesDeco from "@/assets/patterns/pattern-lines.svg";
+
+// Components
+import FeatureCard from "../FeatureCard.astro";
+---
+
+<section class="features | grid-main" aria-labelledby="section-title">
+  <h2 class="sr-only" id="section-title">Restaurant Features</h2>
+  <FeatureCard
+    desktopURL={LandscapeDesktopImg}
+    tabletURL={LandscapeTabletImg}
+    mobileURL={LandscapeMobileImg}
+    mobileWidth={LandscapeMobileImg.width}
+    mobileHeight={LandscapeMobileImg.height}
+    priority={false}
+    alt=""
+    headingTag="h3"
+    headingSize="h2"
+    title="Enjoyable place for all the family"
+    text="Our relaxed surroundings make dining with us a great experience for everyone. We can even arrange a tour of the farm before your meal."
+  >
+    <GrayBGDeco class="bg__deco-top-right" aria-hidden="true" />
+  </FeatureCard>
+
+  <FeatureCard
+    desktopURL={FoodDesktopImg}
+    tabletURL={FoodTabletImg}
+    mobileURL={FoodMobileImg}
+    mobileWidth={FoodMobileImg.width}
+    mobileHeight={FoodMobileImg.height}
+    priority={false}
+    alt=""
+    title="The most locally sourced food"
+    text="All our ingredients come directly from our farm or local fishery. So you can be sure that you're eating the freshest, most sustainable food."
+    headingTag="h3"
+    headingSize="h2"
+    bgDecoRequired={true}
+    class="feature--inverted"
+  >
+    <GrayBGDeco class="bg__deco-top-left" aria-hidden="true" />
+  </FeatureCard>
+</section>
+
+<style>
+  .features {
+    position: relative;
+    padding-block-end: 100px;
+    row-gap: 100px;
+  }
+
+  .bg__deco-top-right,
+  .bg__deco-top-left {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .features {
+      row-gap: 120px;
+    }
+
+    .bg__deco-top-right,
+    .bg__deco-top-left {
+      display: block;
+      position: absolute;
+      z-index: -1;
+    }
+
+    .bg__deco-top-right {
+      top: 220px;
+      left: -375px;
+      transform: rotateY(180deg);
+    }
+
+    .bg__deco-top-left {
+      bottom: 0;
+      right: -375px;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .features {
+    }
+    .bg__deco-top-right {
+      grid-column: 1 / 20;
+      left: 0;
+    }
+
+    .bg__deco-top-left {
+      right: 0;
+    }
+  }
+</style>
